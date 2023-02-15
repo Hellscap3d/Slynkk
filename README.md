@@ -8,7 +8,12 @@ Slynkk is a shell impl written in python. It is a project of mine to learn more 
 
 ## How to use it?
 
-To use it, simply run `curl -s https://raw.githubusercontent.com/SlynkkShell/Slynkk/master/installer.sh | bash` and it will install it for you. If you want to install it manually, you can clone the repo and chmod +x the `slynkk` file and run it. It is not reccomended to run it as root, but it will work if you do.
+To use it, simply run `sudo curl -s https://raw.githubusercontent.com/SlynkkShell/Slynkk/master/installer.sh | bash` and it will install it for you. If you want to install it manually, you can clone the repo and chmod +x the `slynkk` file and run it. It is not reccomended to run the shell as root, but it will work if you do.
+
+### Prerequisites
+
+You need python3 and git installed to use it and recieve updates. It will not work without them.
+You should also have curl installed, but it is not required.
 
 ## How to contribute?
 
