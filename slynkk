@@ -1,0 +1,78 @@
+#!/bin/python3
+
+# Slynkk - The Python Shell
+
+# 🄯 2023-2023, Hellscaped @ hellscaped.software
+
+# All rights are reserved to you, the user.
+# Feel free to extend Slynkk and share it with others.
+# I'm going to document the api sometime in the future, but for now, you'll have to figure it out yourself.
+
+import os, sys, time, subprocess, datetime, colorama, random
+
+# Initialize colorama
+
+colorama.init()
+
+logo = """
+//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\
+                                                            
+      ▒████▒   ████                          ██        ██       
+     ▒██████   ████                          ██        ██       
+     ██▒  ▒█     ██                          ██        ██       
+     ██          ██      ██▓  ▓██  ██░████   ██  ▓██▒  ██  ▓██▒ 
+     ███▒        ██      ▒██  ██▓  ███████▓  ██ ▓██▒   ██ ▓██▒  
+     ▒█████▒     ██       ██▒ ██░  ███  ▒██  ██▒██▒    ██▒██▒   
+      ░█████▒    ██       ███▒██   ██    ██  ████▓     ████▓    
+         ▒███    ██       ░██▓█▓   ██    ██  █████     █████    
+           ██    ██        ████░   ██    ██  ██░███    ██░███   
+     █▒░  ▒██    ██▒       ▒███    ██    ██  ██  ██▒   ██  ██▒  
+     ███████▒    █████      ██▓    ██    ██  ██  ▒██   ██  ▒██  
+     ░█████▒     ░████      ██░    ██    ██  ██   ███  ██   ███ 
+                           ▒██                                  
+                          ███▒                                  
+                          ███                                   
+
+//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\//\\\\
+
+Slynkk - The Python Shell
+Created by Hellscaped @ hellscaped.software
+"""
+
+# colorize the logo
+
+
+def bold(text):
+    return f"{colorama.Style.BRIGHT}{text}{colorama.Style.RESET_ALL}"
+
+def color(text, color):
+    return f"{color}{text}{colorama.Fore.RESET}"
+
+def getPrompt():
+    cwd = os.getcwd()
+    user = os.getlogin()
+    hostname = os.uname()[1]
+    time = datetime.datetime.now().strftime("%H:%M:%S")
+    return f"{bold('╔<')}{colorama.Style.BRIGHT}{colorama.Fore.GREEN}{user}{colorama.Fore.RESET}{colorama.Style.RESET_ALL}{colorama.Fore.RED}@{colorama.Style.BRIGHT}{colorama.Fore.GREEN}{hostname}{colorama.Fore.RESET}:{colorama.Fore.GREEN}{color(cwd,colorama.Fore.BLUE)}{colorama.Fore.RESET}{bold('>')}\n{bold('║')} {colorama.Fore.GREEN}Time: {time}{colorama.Fore.RESET}\n{bold('║')}    \n{bold('╚════════════◸')} "
+
+# colorize the logo
+colors = [colorama.Fore.RED, colorama.Fore.GREEN, colorama.Fore.YELLOW, colorama.Fore.BLUE, colorama.Fore.MAGENTA, colorama.Fore.CYAN]
+primary = color("█", colorama.Fore.CYAN)
+secondary = color("▓", colorama.Fore.BLUE)
+logo = logo.replace("█", primary)
+logo = logo.replace("▓", secondary)
+logo = logo.replace("▒", color("▒", colorama.Fore.RED))
+logo = logo.replace("░", color("░", colorama.Fore.MAGENTA))
+os.system("clear")
+logo = bold(logo)
+print(logo)
+
+# set shell name to slynkk
+os.environ["PS1"] = "slynkk"
+
+while True:
+    command = input(getPrompt())
+    if command.split()[0] == "cd":
+        os.chdir(command.split()[1])
+    else:
+        os.system(command)
