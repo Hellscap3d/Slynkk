@@ -51,6 +51,8 @@ def color(text, color):
 def getPrompt():
     cwd = os.getcwd()
     user = os.getlogin()
+    if os.getuid() == 0:
+        user = color("root", colorama.Fore.RED)
     hostname = os.uname()[1]
     time = datetime.datetime.now().strftime("%H:%M:%S")
     return f"{bold('╔<')}{colorama.Style.BRIGHT}{colorama.Fore.GREEN}{user}{colorama.Fore.RESET}{colorama.Style.RESET_ALL}{colorama.Fore.RED}@{colorama.Style.BRIGHT}{colorama.Fore.GREEN}{hostname}{colorama.Fore.RESET}:{colorama.Fore.GREEN}{color(cwd,colorama.Fore.BLUE)}{colorama.Fore.RESET}{bold('>')}\n{bold('║')} {colorama.Fore.GREEN}Time: {time}{colorama.Fore.RESET}\n{bold('║')}    \n{bold('╚════════════◸')} "
