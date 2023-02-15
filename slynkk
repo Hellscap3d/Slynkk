@@ -8,7 +8,9 @@
 # Feel free to extend Slynkk and share it with others.
 # I'm going to document the api sometime in the future, but for now, you'll have to figure it out yourself.
 
-import os, sys, time, subprocess, datetime, colorama, random
+import os, sys, time, subprocess, datetime, colorama, random, requests
+
+SLYNKK_VERSION = "0.0.4"
 
 # Initialize colorama
 
@@ -65,16 +67,39 @@ logo = logo.replace("█", primary)
 logo = logo.replace("▓", secondary)
 logo = logo.replace("▒", color("▒", colorama.Fore.RED))
 logo = logo.replace("░", color("░", colorama.Fore.MAGENTA))
-os.system("clear")
+
 logo = bold(logo)
-print(logo)
+
 
 # set shell name to slynkk
 os.environ["PS1"] = "slynkk"
 
-while True:
-    command = input(getPrompt())
-    if command.split()[0] == "cd":
-        os.chdir(command.split()[1])
-    else:
-        os.system(command)
+if len(sys.argv) == 1:
+    os.system("clear")
+    print(logo) 
+    while True:
+        command = input(getPrompt())
+        if command.split()[0] == "cd":
+            os.chdir(command.split()[1])
+        else:
+            os.system(command)
+else:
+    args = sys.argv[1:]
+    if args[0] == "upgrade":
+        # check if there is an update
+        r = requests.get("https://raw.githubusercontent.com/SlynkkShell/Slynkk/master/version")
+        if r.status_code != 200:
+            print("Failed to check for updates.")
+            exit(1)
+        if r.text != SLYNKK_VERSION:
+            print("There is an update available!")
+            print("Updating...")
+            exitcode = os.system("curl -s https://raw.githubusercontent.com/SlynkkShell/Slynkk/master/update.sh | sudo bash")
+            if exitcode == -1:
+                print("Shell failed to update due to an error.")
+            elif exitcode == 1:
+                print("You aren't root!")
+            else:
+                print("Done!")
+        else:
+            print("You are already up to date!")

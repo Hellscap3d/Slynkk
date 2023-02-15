@@ -15,6 +15,10 @@ To use it, simply run `curl -s https://raw.githubusercontent.com/SlynkkShell/Sly
 You need python3 and git installed to use it and recieve updates. It will not work without them.
 You should also have curl installed, but it is not required.
 
+## How to update?
+
+To update, simply run `slynkk upgrade` and it will update it for you.
+
 ## How to contribute?
 
 If you want to contribute, you can fork the repo and make a pull request. If you want to add a feature, please make sure to make a new branch and make a pull request to the `dev` branch. If you want to report a bug, please make an issue.
