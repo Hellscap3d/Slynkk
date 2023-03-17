@@ -10,7 +10,7 @@
 
 import os, sys, time, subprocess, datetime, colorama, random, requests
 
-SLYNKK_VERSION = "0.0.4"
+SLYNKK_VERSION = "0.0.5"
 
 # Initialize colorama
 
@@ -72,17 +72,26 @@ logo = bold(logo)
 
 
 # set shell name to slynkk
-os.environ["PS1"] = "slynkk"
+os.environ["SHELL"] = "/bin/slynkk"
 
-if len(sys.argv) == 1:
+if len(sys.argv) == 1 or "--no-logo" in sys.argv:
     os.system("clear")
-    print(logo) 
+    if "--no-logo" not in sys.argv:
+        print(logo)
     while True:
-        command = input(getPrompt())
-        if command.split()[0] == "cd":
-            os.chdir(command.split()[1])
-        else:
-            os.system(command)
+        try:
+            command = input(getPrompt())
+            if command.split()[0] == "cd":
+                os.chdir(command.split()[1])
+            elif command == "exit":
+                break
+            else:
+                os.system(command)
+        except KeyboardInterrupt:
+            print()
+            pass
+        except:
+            pass
 else:
     args = sys.argv[1:]
     if args[0] == "upgrade":
